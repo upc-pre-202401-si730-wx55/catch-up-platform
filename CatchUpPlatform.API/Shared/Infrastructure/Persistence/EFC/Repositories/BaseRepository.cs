@@ -1,31 +1,40 @@
 using CatchUpPlatform.API.Shared.Domain.Repositories;
+using CatchUpPlatform.API.Shared.Infrastructure.Persistence.EFC.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace CatchUpPlatform.API.Shared.Infrastructure.Persistence.EFC.Repositories;
 
 public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
 {
-    public Task AddAsync(TEntity entity)
+    protected readonly AppDbContext Context;
+
+    protected BaseRepository(AppDbContext context)
     {
-        throw new NotImplementedException();
+        Context = context;
     }
 
-    public Task<TEntity> FindByIdAsync(int id)
+    public async Task AddAsync(TEntity entity)
     {
-        throw new NotImplementedException();
+        await Context.Set<TEntity>().AddAsync(entity);
+    }
+
+    public async Task<TEntity> FindByIdAsync(int id)
+    {
+        return await Context.Set<TEntity>().FindAsync(id);
     }
 
     public void Update(TEntity entity)
     {
-        throw new NotImplementedException();
+        Context.Set<TEntity>().Update(entity);
     }
 
     public void Remove(TEntity entity)
     {
-        throw new NotImplementedException();
+        Context.Set<TEntity>().Remove(entity);
     }
 
-    public Task<IEnumerable<TEntity>> ListAsync()
+    public async Task<IEnumerable<TEntity>> ListAsync()
     {
-        throw new NotImplementedException();
+        return await Context.Set<TEntity>().ToListAsync();
     }
 }
