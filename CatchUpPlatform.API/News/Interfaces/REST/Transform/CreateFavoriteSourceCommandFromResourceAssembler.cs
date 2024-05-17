@@ -1,7 +1,7 @@
 using CatchUpPlatform.API.News.Domain.Model.Commands;
-using CatchUpPlatform.API.News.Interfaces.Resources;
+using CatchUpPlatform.API.News.Interfaces.REST.Resources;
 
-namespace CatchUpPlatform.API.News.Interfaces.Transform;
+namespace CatchUpPlatform.API.News.Interfaces.REST.Transform;
 
 public static class CreateFavoriteSourceCommandFromResourceAssembler
 {
